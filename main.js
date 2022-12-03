@@ -47,7 +47,10 @@ function onSubmit(e){
         l.forEach((u) => {
             console.log(u.innerText);
         })
+        localStorage.setItem('Username',name1.value);
+        localStorage.setItem('Email',email.value);
         name1.value = '';
         email.value = '';
     }
+    
 }
