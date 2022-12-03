@@ -45,17 +45,27 @@ function onSubmit(e){
     }
     else{
         const li = document.createElement('li');
-        li.appendChild(document.createTextNode(`${name1.value} : ${email.value}`));
+        
+        // localStorage.setItem('Username',name1.value);
+        // localStorage.setItem('Email',email.value);
+        
+        // storing user object
+        // localStorage.setItem('Users',JSON.stringify(user));
+
+        // storing multiple users
+        localStorage.setItem(user.email,JSON.stringify(user));
+
+
+//Adding users to li using localStorage
+        let u1 = JSON.parse(localStorage.getItem(localStorage.key(localStorage[localStorage.length-1])));
+        li.appendChild(document.createTextNode(u1.name +" " + u1.email));
+        
         users.appendChild(li);
         const l = document.querySelectorAll('li');
         l.forEach((u) => {
             console.log(u.innerText);
         })
-        // localStorage.setItem('Username',name1.value);
-        // localStorage.setItem('Email',email.value);
-        
-        // storing user object
-        localStorage.setItem('Users',JSON.stringify(user));
+
         name1.value = '';
         email.value = '';
     }
