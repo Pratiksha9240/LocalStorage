@@ -35,6 +35,10 @@ form.addEventListener('submit',onSubmit);
 
 function onSubmit(e){
     e.preventDefault();
+    const user = {
+        name : name1.value,
+        email : email.value
+    }
     if(name1.value === '' || email.value === ''){
         msg.classList.add('error');
         msg.innerHTML = 'Please fill all the fields';
@@ -47,8 +51,11 @@ function onSubmit(e){
         l.forEach((u) => {
             console.log(u.innerText);
         })
-        localStorage.setItem('Username',name1.value);
-        localStorage.setItem('Email',email.value);
+        // localStorage.setItem('Username',name1.value);
+        // localStorage.setItem('Email',email.value);
+        
+        // storing user object
+        localStorage.setItem('Users',JSON.stringify(user));
         name1.value = '';
         email.value = '';
     }
