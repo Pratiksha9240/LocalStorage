@@ -31,7 +31,25 @@ const msg = document.querySelector('.msg');
 const users = document.querySelector('#users');
 const form = document.querySelector('#my-form');
 
+// const user = {
+//     name : name1.value,
+//     email : email.value
+// }
+// const li = document.createElement('li');
+// for(i=0;i<localStorage.length;i++){
+//     let u1 = JSON.parse(localStorage.getItem(localStorage.key(i)));
+//     li.appendChild(document.createTextNode(u1.name +" " + u1.email));
+//     users.appendChild(li);
+// }
+
+
+// const l = document.querySelectorAll('li');
+// l.forEach((u) => {
+//     // console.log(u.innerText);
+// })
+
 form.addEventListener('submit',onSubmit);
+users.addEventListener('click',remove);
 
 function onSubmit(e){
     e.preventDefault();
@@ -44,8 +62,8 @@ function onSubmit(e){
         msg.innerHTML = 'Please fill all the fields';
     }
     else{
-        const li = document.createElement('li');
         
+ 
         // localStorage.setItem('Username',name1.value);
         // localStorage.setItem('Email',email.value);
         
@@ -54,20 +72,36 @@ function onSubmit(e){
 
         // storing multiple users
         localStorage.setItem(user.email,JSON.stringify(user));
-
-
-//Adding users to li using localStorage
-        let u1 = JSON.parse(localStorage.getItem(localStorage.key(localStorage[localStorage.length-1])));
-        li.appendChild(document.createTextNode(u1.name +" " + u1.email));
-        
-        users.appendChild(li);
-        const l = document.querySelectorAll('li');
-        l.forEach((u) => {
-            console.log(u.innerText);
-        })
-
+        showOnScreen();
         name1.value = '';
         email.value = '';
     }
-    
+   
+}
+function remove(e){
+    if(e.target.classList.contains('delete')){
+        var li = e.target.parentElement;
+        //console.log(li.textContent.split(' ')[1]);
+        users.removeChild(li);
+        localStorage.removeItem(li.textContent.split(' ')[1]);
+    }
+}
+
+function showOnScreen(){
+    //Adding users to li using localStorage
+        var li = document.createElement('li');
+
+        let u1 = JSON.parse(localStorage.getItem(localStorage.key(localStorage[localStorage.length-1])));
+        li.appendChild(document.createTextNode(u1.name +" " + u1.email));
+
+        users.appendChild(li);
+
+        delBtn = document.createElement('button');
+        delBtn.className = 'btn btn-danger btn-sm float-right delete';
+        delBtn.id = 'del';
+        delBtn.appendChild(document.createTextNode(' X'))
+
+        li.appendChild(delBtn);
+        users.appendChild(li);
+
 }
