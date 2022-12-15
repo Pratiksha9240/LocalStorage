@@ -69,7 +69,7 @@
                 const parentNode = document.getElementById('listOfUsers');
                 const childHTML = `<li id=${user._id}> ${user.name} - ${user.email}
                                         <button onclick=deleteUser('${user._id}')> Delete User </button>
-                                        <button onclick=editUserDetails('${user.email}','${user.name}','${user.phonenumber}')>Edit User </button>
+                                        <button onclick=editUserDetails('${user._id}','${user.email}','${user.name}','${user.phonenumber}')>Edit User </button>
                                      </li>`
 
                 parentNode.innerHTML = parentNode.innerHTML + childHTML;
@@ -77,13 +77,31 @@
 
             //Edit User
 
-            function editUserDetails(emailId, name, phonenumber){
+            function editUserDetails(userId,emailId, name1, phonenumber1){
 
-                document.getElementById('email').value = emailId;
-                document.getElementById('username').value = name;
-                document.getElementById('phonenumber').value =phonenumber;
+                const name = event.target.username;
+                const email = event.target.emailId;
+                const phonenumber = event.target.phonenumber;
+                // localStorage.setItem('name', name);
+                // localStorage.setItem('email', email);
+                // localStorage.setItem('phonenumber', phonenumber)
+                const obj = {
+                    name,
+                    email,
+                    phonenumber
+                }
 
-                deleteUser(emailId)
+                axios.put(`https://crudcrud.com/api/0d79cd33863a4c5cb9b6954846d75072/appoinmentData/${userId}`,obj)
+                .then((res) => {
+                    document.getElementById('email').value = emailId;
+                    document.getElementById('username').value = name1;
+                    document.getElementById('phonenumber').value =phonenumber1;
+
+                    deleteUser(userId)
+                }).catch(err => {
+                    console.log(err)
+                })
+
              }
 
             // deleteUser('abc@gmail.com')
